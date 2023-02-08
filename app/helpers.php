@@ -13,3 +13,20 @@ function formatDate(string $date): string
 {
     return date('M j, Y', strtotime($date));
 }
+
+//	Debug
+if ( ! function_exists('vr_debug')) {
+	function vr_debug ( $object , $name = '' ) {		
+        if ( $name != '' ) {
+            echo('\'' . $name . '\' : ');
+        }
+
+		if ( is_array ( $object ) ) {
+			echo('<pre>');
+			print_r( $object ); 
+			echo('</pre>');
+		} else {
+			var_dump ( $object );
+		}	
+	}
+}
