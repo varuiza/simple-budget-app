@@ -10,16 +10,19 @@ define( 'VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR );
 
 /*************************************************************************/
 
-require APP_PATH . "app.php";
-require APP_PATH . "helpers.php";
+require APP_PATH . 'app.php';
+require APP_PATH . 'helpers.php';
 
 $transaction_files = get_transaction_files( FILES_PATH );
-vr_debug( $transaction_files, "Transaction Files" );
+//vr_debug( $transaction_files, 'Transaction Files' );
 
 $transactions = [];
 foreach( $transaction_files as $transaction_file ) {
-    $transactions = array_merge( $transactions, get_transactions( $transaction_file ) );
+    $transactions = array_merge( $transactions, get_transactions( $transaction_file, 'extract_csv_transaction' ) );
 }
-vr_debug( $transactions, "Transactions" );
+//vr_debug( $transactions, 'Transactions' );
 
-//require VIEWS_PATH . 'transactions.php';
+$totals = calculate_totals( $transactions );
+//vr_debug( $totals, 'Totals' );
+
+require VIEWS_PATH . 'transactions.php';

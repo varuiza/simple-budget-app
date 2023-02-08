@@ -1,18 +1,25 @@
 <?php
 
-declare(strict_types=1);
+declare( strict_types = 1 );
 
-function formatDollarAmount(float $amount): string
-{
-    $isNegative = $amount < 0;
-
-    return ($isNegative ? '-' : '') . '$' . number_format(abs($amount), 2);
+function format_date( string $date ): string {
+    return date( 'M j, Y', strtotime( $date ) );
 }
 
-function formatDate(string $date): string
-{
-    return date('M j, Y', strtotime($date));
+function amount_color( float $amount ): string {
+	if ( $amount > 0 ) {
+		return 'green';
+	} elseif ( $amount < 0 ) {
+		return 'red';
+	} else {
+		return 'black';
+	}
 }
+
+function format_amount( float $amount ): string {
+    return number_format( $amount, 2 ) . '€';
+}
+
 
 //	Debug
 if ( ! function_exists('vr_debug')) {

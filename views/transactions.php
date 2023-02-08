@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Transactions</title>
+        <title>Simple Budget App</title>
         <style>
             table {
                 width: 100%;
@@ -24,6 +24,7 @@
         </style>
     </head>
     <body>
+    <h1>Simple Budget App</h1>
         <table>
             <thead>
                 <tr>
@@ -34,41 +35,31 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (! empty($transactions)): ?>
-                    <?php foreach($transactions as $transaction): ?>
+                <?php if ( ! empty( $transactions ) ): ?>
+                    <?php foreach( $transactions as $transaction ): ?>
                         <tr>
-                            <td><?= formatDate($transaction['date']) ?></td>
-                            <td><?= $transaction['checkNumber'] ?></td>
-                            <td><?= $transaction['description'] ?></td>
-                            <td>
-                                <?php if ($transaction['amount'] < 0): ?>
-                                    <span style="color: red;">
-                                        <?= formatDollarAmount($transaction['amount']) ?>
-                                    </span>
-                                <?php elseif ($transaction['amount'] > 0): ?>
-                                    <span style="color: green;">
-                                        <?= formatDollarAmount($transaction['amount']) ?>
-                                    </span>
-                                <?php else: ?>
-                                    <?= formatDollarAmount($transaction['amount']) ?>
-                                <?php endif ?>
+                            <td><?php echo format_date( $transaction['date'] ); ?></td>
+                            <td><?php echo $transaction['check_number']; ?></td>
+                            <td><?php echo $transaction['description']; ?></td>
+                            <td style="color: <?php echo amount_color( $transaction['amount'] ); ?>">
+                                <?php echo format_amount( $transaction['amount'] ); ?>
                             </td>
                         </tr>
-                    <?php endforeach ?>
-                <?php endif ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Total Income:</th>
-                    <td><?= formatDollarAmount($totals['totalIncome'] ?? 0) ?></td>
+                    <td><?php echo format_amount( $totals['total_income'] ); ?></td>
                 </tr>
                 <tr>
                     <th colspan="3">Total Expense:</th>
-                    <td><?= formatDollarAmount($totals['totalExpense'] ?? 0) ?></td>
+                    <td><?php echo format_amount( $totals['total_expense'] ); ?></td>
                 </tr>
                 <tr>
                     <th colspan="3">Net Total:</th>
-                    <td><?= formatDollarAmount($totals['netTotal'] ?? 0) ?></td>
+                    <td><?php echo format_amount( $totals['net_total'] ); ?></td>
                 </tr>
             </tfoot>
         </table>
